@@ -14,6 +14,20 @@ class PyCrawler(object):
             print(e)
             return ""
         return html.content.decode('latin-1')
+    
+    def get_links(self, url):
+        html = self.get_html(url)
+        parsed = urlparse(url)
+        base = f"{parsed.scheme}://{parsed.netloc}"
+        links = re.findall('''<a\s+(?:[^>]*?\s+)?href="([^"]*)"''', html)
+        for i, link in enumerate(links):
+            if not urlparse(link).netloc:
+                link_with_base = base + link
+                links[i] = link_with_base
+        
+        return set(filter(lambda x: 'mailto' not in x, links))
+    
+    
 
     
     def start():
