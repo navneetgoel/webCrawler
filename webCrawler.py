@@ -27,6 +27,9 @@ class PyCrawler(object):
         
         return set(filter(lambda x: 'mailto' not in x, links))
     
+    def extract_info(self, url):
+        html = self.get_html(url)
+        return None
     
 
     
