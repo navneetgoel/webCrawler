@@ -29,15 +29,17 @@ class PyCrawler(object):
     
     def extract_info(self, url):
         html = self.get_html(url)
-        return None
+        meta = re.findall("<meta .*?name=[\"'](.*?)['\"].*?content=[\"'](.*?)['\"].*?>", html)
+        return dict(meta)
     
     def crawl(self, url):
         for link in self.get_links(url):
             if link in self.visited:
                 continue
-            print(link)
+            # print(link)
             self.visited.add(link)
             info = self.extract_info(link)
+            print(f"""Link: {link} Description: {info.get('description')}  Keywords: {info.get('keywords')}""") 
             self.crawl(link)
 
     def start(self):
