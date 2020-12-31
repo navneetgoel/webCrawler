@@ -40,8 +40,8 @@ class PyCrawler(object):
             info = self.extract_info(link)
             self.crawl(link)
 
-    def start():
-        self.crawler(self.starting_url)
+    def start(self):
+        self.crawl(self.starting_url)
 
 if __name__ == "__main__":
     crawler = PyCrawler("https://www.google.com")
