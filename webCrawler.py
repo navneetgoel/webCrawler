@@ -31,11 +31,18 @@ class PyCrawler(object):
         html = self.get_html(url)
         return None
     
+    def crawl(self, url):
+        for link in self.get_links(url):
+            if link in self.visited:
+                continue
+            print(link)
+            self.visited.add(link)
+            info = self.extract_info(link)
+            self.crawl(link)
 
-    
     def start():
-        pass
+        self.crawler(self.starting_url)
 
 if __name__ == "__main__":
-    crawler = PyCrawler()
+    crawler = PyCrawler("https://www.google.com")
     crawler.start()
